@@ -52,17 +52,34 @@ public class PlayerController : MonoBehaviour
             transform.position = player_pos;
         }
 
+        // shooting logic
+
+        //shoot straight
         if (Input.GetKey("space")){
             animator.SetBool("shoot", true);
+            shooting = true;
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                transform.eulerAngles = new Vector3(0, 0, 45);
+            }
+            else if (Input.GetKey(KeyCode.X))
+            {
+                transform.eulerAngles = new Vector3(0, 0, -45);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+            }
         }
 
-        if (!Input.GetKey("space"))
-        {
+        else {
+            shooting = false;
             animator.SetBool("shoot", false);
+            transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
-
-
+       
 
     }
 }
