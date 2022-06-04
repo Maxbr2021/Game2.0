@@ -6,25 +6,57 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] float speed = 4;
-    Animator animator;
-    bool shooting = false;
     Vector3 player_pos;
     Vector3 move;
     float max_y = 4.1371f;
     float min_y = -4.1371f;
     CapsuleCollider2D body_colider;
+    public float rot;
 
-
+    Gun gun;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        gun = transform.GetComponentInChildren<Gun>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        move_player();
+        aim();
+
+    }
+
+    void aim()
+    {
+       
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            transform.eulerAngles = new Vector3(0, 0, 33);
+            rot = 33;
+
+        }
+        else if (Input.GetKey(KeyCode.X))
+        {
+            transform.eulerAngles = new Vector3(0, 0, -33);
+            rot = -33;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            rot = 0;
+        }
+        
+
+        
+    }
+
+
+    void move_player()
     {
         var move_dir = Input.GetAxis("Vertical");
         if (move_dir > 0f)
@@ -51,35 +83,5 @@ public class PlayerController : MonoBehaviour
             }
             transform.position = player_pos;
         }
-
-        // shooting logic
-
-        //shoot straight
-        if (Input.GetKey("space")){
-            animator.SetBool("shoot", true);
-            shooting = true;
-
-            if (Input.GetKey(KeyCode.E))
-            {
-                transform.eulerAngles = new Vector3(0, 0, 45);
-            }
-            else if (Input.GetKey(KeyCode.X))
-            {
-                transform.eulerAngles = new Vector3(0, 0, -45);
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-            }
-        }
-
-        else {
-            shooting = false;
-            animator.SetBool("shoot", false);
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-
-       
-
     }
 }
