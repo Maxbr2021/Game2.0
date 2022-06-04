@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] float speed = 4;
+    [SerializeField] float scroll_speed;
+    [SerializeField] GameObject cam;
     Vector3 player_pos;
     Vector3 move;
     float max_y = 4.1371f;
@@ -20,10 +22,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gun = transform.GetComponentInChildren<Gun>();
+        player_pos = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         move_player();
         aim();
@@ -58,6 +61,8 @@ public class PlayerController : MonoBehaviour
 
     void move_player()
     {
+        player_pos.x += scroll_speed * Time.deltaTime;
+        transform.position = player_pos;
         var move_dir = Input.GetAxis("Vertical");
         if (move_dir > 0f)
         {
