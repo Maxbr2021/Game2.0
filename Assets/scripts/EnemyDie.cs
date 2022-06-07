@@ -6,6 +6,11 @@ public class EnemyDie : MonoBehaviour
 {
     [SerializeField] GameObject exp;
 
+    
+    void Start()
+    {
+        Destroy(gameObject, 15);
+    }
    
     void OnCollisionEnter2D(Collision2D other)
     {
