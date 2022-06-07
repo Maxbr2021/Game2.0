@@ -11,7 +11,7 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         start = transform.position.x;
-        len = GetComponent<SpriteRenderer>().bounds.size.x;
+        var len = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     // Update is called once per frame

@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  scroll_speed: 2.5
+  cam: {fileID: 0}
+  rot: 0
 --- !u!135 &1556776837805613964
 SphereCollider:
   m_ObjectHideFlags: 0

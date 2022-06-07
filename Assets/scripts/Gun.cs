@@ -21,7 +21,7 @@ public class Gun : MonoBehaviour
     public void shoot(float rot)
     {
         transform.localRotation = Quaternion.Euler(0, 0, rot);
-        GameObject bull = Instantiate(bullet.gameObject, transform.position, Quaternion.identity);
+        GameObject bull = Instantiate(bullet.gameObject, transform.position, transform.localRotation);
         Bullet goBull = bull.GetComponent<Bullet>();
         shoot_dir = (transform.localRotation * Vector2.right).normalized;
         goBull.direction = shoot_dir;
