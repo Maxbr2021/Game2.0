@@ -9,8 +9,9 @@ public class EnemyDie : MonoBehaviour
     
     void Start()
     {
-        Destroy(gameObject, 15);
+        Destroy(gameObject, 25);
     }
+
    
     void OnCollisionEnter2D(Collision2D other)
     {

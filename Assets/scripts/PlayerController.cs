@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] float speed = 4;
-    [SerializeField] float scroll_speed;
-    [SerializeField] GameObject cam;
+    public float scroll_speed;
+  
     Vector3 player_pos;
     Vector3 move;
     float max_y = 4.1371f;
@@ -36,22 +36,47 @@ public class PlayerController : MonoBehaviour
     void aim()
     {
        
+        // keyboard controll -->  (G = aim; E,X,D = direction)
+        if (Input.GetKey(KeyCode.G) ){
+            if (Input.GetKey(KeyCode.E))
+            {
+                transform.eulerAngles = new Vector3(0, 0, 33);
+                rot = 33;
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.eulerAngles = new Vector3(0, 0, 33);
-            rot = 33;
+            }
+            else if (Input.GetKey(KeyCode.X))
+            {
+                transform.eulerAngles = new Vector3(0, 0, -33);
+                rot = -33;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                rot = 0;
+            }
+        }
+        //voice controll --> just use voice input when no keyboard signal is given at the same time
+        if (!(Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.E))){
 
-        }
-        else if (Input.GetKey(KeyCode.X))
-        {
-            transform.eulerAngles = new Vector3(0, 0, -33);
-            rot = -33;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-            rot = 0;
+            if (Input.GetKey(KeyCode.R))
+            {
+                transform.eulerAngles = new Vector3(0, 0, 33);
+                rot = 33;
+                Debug.Log("Voice: Aim up");
+
+            }
+            else if (Input.GetKey(KeyCode.C))
+            {
+                transform.eulerAngles = new Vector3(0, 0, -33);
+                rot = -33;
+                Debug.Log("Voice: Aim down");
+            }
+            else if (Input.GetKey(KeyCode.F))
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                rot = 0;
+                Debug.Log("Voice: Aim straight");
+            }
         }
         
 
@@ -63,10 +88,24 @@ public class PlayerController : MonoBehaviour
     {
         player_pos.x += scroll_speed * Time.deltaTime;
         transform.position = player_pos;
-        var move_dir = Input.GetAxis("Vertical");
-        if (move_dir > 0f)
+        if (Input.GetKey(KeyCode.W))
         {
-            player_pos = transform.position;
+            move_up(1.0f);
+        }else if (!Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.UpArrow)){
+            move_up(2.0f);
+            Debug.Log("Voice: move up");
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            move_down(-1.0f);
+        }else if (!Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.DownArrow)){
+            move_down(-2.0f);
+            Debug.Log("Voice: move down");
+        }
+    }
+    void move_up(float move_dir){
+         player_pos = transform.position;
             player_pos.y += move_dir * speed * Time.deltaTime;
 
             if (player_pos.y >= max_y)
@@ -74,12 +113,10 @@ public class PlayerController : MonoBehaviour
                 player_pos.y = max_y;
             }
             transform.position = player_pos;
-        }
 
-        move_dir = Input.GetAxis("Vertical");
-        if (move_dir < 0f)
-        {
-            player_pos = transform.position;
+    }
+    void move_down(float move_dir){
+        player_pos = transform.position;
             player_pos.y += move_dir * speed * Time.deltaTime;
 
             if (player_pos.y <= min_y)
@@ -87,6 +124,6 @@ public class PlayerController : MonoBehaviour
                 player_pos.y = min_y;
             }
             transform.position = player_pos;
-        }
+
     }
 }

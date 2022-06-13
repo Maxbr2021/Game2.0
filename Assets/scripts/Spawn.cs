@@ -30,12 +30,14 @@ public class Spawn : MonoBehaviour
  
     public void spawn(float x)
     {
-        for(int i = 0; i < spawnPerWave; i++ ){
-        Debug.Log(xmax_offset);
-        Debug.Log(xmax_offset + x);
-        Debug.Log(x);
         float x_spawn = Random.Range(x+xmin_offset,x+xmax_offset);
         float y_spawn = Random.Range(ymin_offset,ymax_offset);
+        for(int i = 0; i < spawnPerWave; i++ ){
+        // Debug.Log(xmax_offset);
+        // Debug.Log(xmax_offset + x);
+        // Debug.Log(x);
+        x_spawn += i;
+        y_spawn = Random.Range(ymin_offset,ymax_offset);
         Vector3 spwan_pos = new Vector3(x_spawn,y_spawn,0f);
         GameObject enemy = Instantiate(enemyPrefab,spwan_pos,Quaternion.identity);
         }
