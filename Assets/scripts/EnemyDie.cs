@@ -17,7 +17,7 @@ public class EnemyDie : MonoBehaviour
     {
         if (other.transform.tag == "Bullet"){
             
-            Debug.Log("Hit by bullet");
+            //Debug.Log("Hit by bullet");
             GameObject goExp =  Instantiate(exp,transform.position,Quaternion.identity);
             Destroy(gameObject);
             Destroy(other.gameObject);

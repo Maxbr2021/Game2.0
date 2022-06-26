@@ -27,8 +27,12 @@ public class PlayerShoot : MonoBehaviour
         facing = controller.rot;
         if (Input.GetKey("space") && !shooting)
         {
+ 	        Debug.Log("Keyboard: shoot");
             StartCoroutine(Shoot());
-        }
+        } else if(Input.GetKey(KeyCode.M) && !shooting){
+	        Debug.Log("Voice: shoot");
+	        StartCoroutine(Shoot());
+	}
 
     }
 
